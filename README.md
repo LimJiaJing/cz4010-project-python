@@ -259,6 +259,51 @@ Unfortunately, none of out algorithms would be able to stop the parties from doi
 ## External Libraries
 [(go to top)]
 
+### Cryptographic libraries
+#### cryptography
+`cryptography.hazmat.primitives.asymmetric.dh.generate_parameters(generator,key_size)` 
+used to generate random safe prime for prime modulus
+* [documentation](https://cryptography.io/en/latest/hazmat/primitives/asymmetric/dh/#group-parameters)
+
+`cryptography.fernet.Fernet` used for symmetric key encryption  
+* [documentation](https://cryptography.io/en/latest/fernet/)
+* `Fernet` is a high level symmetric encryption recipe provided by `cryptography`
+* `Fernet` uses:
+  * `AES` in `CBC` mode with a `128-bit key` for encryption; using `PKCS7` padding
+  * `HMAC` using `SHA256` for authentication
+  * `os.urandom()` for generation of IV
+  * [source](https://cryptography.io/en/latest/fernet/#implementation)  
+
+#### hashlib
+`hashlib.sha256` used for hashing messages  
+* [documentation](https://docs.python.org/3/library/hashlib.html#hash-algorithms)
+* `hashlib` uses `SHA3` from `OpenSSL 1.1.1` and newer
+  * [source](https://docs.python.org/3/library/hashlib.html#hash-algorithms)  
+
+
+#### sympy
+`sympy.ntheory.primetest.isprime(n)` used to check if n is prime
+* [documentation](https://docs.sympy.org/latest/modules/ntheory.html#sympy.ntheory.primetest.isprime)
+* For n larger than 2<sup>64</sup>, a strong BPSW test is performed. 
+  * [source](https://docs.sympy.org/latest/modules/ntheory.html#sympy.ntheory.primetest.isprime)  
+
+#### secrets
+`secrets.randbits(size)` used to generate random numbers of bit-size 1024 for clients' private secret
+* [documentation](https://docs.python.org/3/library/secrets.html#random-numbers)
+* `secrets.randbits(size)` is a cryptographically secure random number generator
+
+
+### Other libraries
+#### random
+`random.sample()` used to generate phone numbers and invalid phone numbers
+* This usage does not require the generator to be cryptographically secure  
+
+`random.shuffle()` used to shuffle the phone numbers
+* This usage does not require the generator to be cryptographically secure
+
+#### pandas
+`pandas` used for displaying data as well as reading and writing to `.csv` files
+
 
 ## References
 [(go to top)]
