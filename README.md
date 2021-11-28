@@ -92,7 +92,8 @@ In v2.0, there is one additional section - `Verify no shuffling of encrypted set
 ### v1.0 - The basic algorithm
 [(go to top)]  
 
-Notebook: [v1.0 notebook](v1.0.ipynb)
+Notebook: [v1.0 notebook](v1.0.ipynb)  
+Algorithm explanation: [v1.0 explanation](#v10-basic-dh-algorithm)  
 
 To run the notebook, simply click `Kernel -> Restart & Run All`  
 
@@ -115,7 +116,8 @@ key_size = 1024 # both private keys and large prime
 ### v1.1 - Prevent man-in-the-middle attack with symmetric key encryption!
 [(go to top)]  
 
-Notebook: [v1.1 notebook](v1.1.ipynb)    
+Notebook: [v1.1 notebook](v1.1.ipynb)   
+Algorithm explanation: [v1.1 explanation](#v11-dh-algorithm-with-symmetric-encryption)  
 
 To run the notebook, simply click `Kernel -> Restart & Run All`  
 Everything mentioned in [v1.0](#v10---the-basic-algorithm) is applicable
@@ -125,7 +127,8 @@ Everything mentioned in [v1.0](#v10---the-basic-algorithm) is applicable
 ### v1.2 - Prevent set size reveal with padding!
 [(go to top)]
 
-Notebook: [v1.2 notebook](v1.2.ipynb)     
+Notebook: [v1.2 notebook](v1.2.ipynb)   
+Algorithm explanation: [v1.2 explanation](#v12-dh-algorithm-with-padding)  
 
 To run the notebook, simply click `Kernel -> Restart & Run All`  
 Everything mentioned in [v1.1](#v11---prevent-man-in-the-middle-attack-with-symmetric-key-encryption) is applicable
@@ -147,7 +150,8 @@ common_phone_number_count = 10
 ### v2.0 - Detect shuffling of encrypted set with commit mechanism!
 [(go to top)]
 
-Notebook: [v2.0 notebook](v2.0.ipynb)    
+Notebook: [v2.0 notebook](v2.0.ipynb)  
+Algorithm explanation: [v2.0 explanation](#v20-dh-algorithm-with-result-verification)
 
 To run the notebook, simply click `Kernel -> Restart & Run All`  
 Everything mentioned in [v1.2](#v12---prevent-set-size-reveal-with-padding) is applicable
