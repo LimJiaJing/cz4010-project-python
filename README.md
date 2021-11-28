@@ -9,7 +9,7 @@ In this project, we designed and implemented several algorithms for secure and p
   - [v1.0 - The basic algorithm](#v1.0---the-basic-algorithm)
     - [Change phone number count](#change-phone-number-count)
     - [Change key size](#change-key-size)
-  - [v1.1 - Prevent man-in-the-middle attack with symmetric key encryption!](#v1.1---prevent-man-in-the-middle-attack-with-symmetric-key-encryption!)
+  - [v1.1 - Prevent man-in-the-middle attack with symmetric key encryption!](#v11---prevent-man-in-the-middle-attack-with-symmetric-key-encryption)
   - [v1.2 - Prevent set size reveal with padding!](#v1.2---prevent-set-size-reveal-with-padding!)
     - [Change set size](#change-set-size)
   - [v2.0 - Detect shuffling of encrypted set with commit mechanism!](#v2.0---detect-shuffling-of-encrypted-set-with-commit-mechanism!)
@@ -31,7 +31,7 @@ In this project, we designed and implemented several algorithms for secure and p
     - [cryptography](#cryptography)
     - [hashlib](#hashlib)
     - [sympy](#sympy)
-    - [secrets](secrets)
+    - [secrets](#secrets)
   - [Other Libraries](#other-libraries)
     - [random](#random)
     - [pandas](#pandas)
@@ -42,7 +42,7 @@ In this project, we designed and implemented several algorithms for secure and p
 ## Motivation 
 [(go to top)]
 
-Grab and Gojek want to identify the drivers who are double-dipping on both platforms while using the same hired vehicle and the same phone number for receiving orders (assuming this behavior is against the individual contracts).
+Grab and Gojek want to identify the drivers who are double-dipping on both platforms while using the same hired vehicle and the same phone number for receiving orders (assuming this behaviour is against the individual contracts).
 - Parties should be able to compute the intersection of two sets (phone numbers) without disclosing the sets.
 - No party should gain any knowledge about sets of other parties (prevent poaching of drivers in the example).
 - Every party should gain the knowledge about final intersection set (the common phone numbers are revealed).
