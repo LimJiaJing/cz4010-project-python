@@ -36,6 +36,7 @@ In this project, we designed and implemented several algorithms for secure and p
     - [random](#random)
     - [pandas](#pandas)
   - [Installation](#installation)
+- [Other Development Tools](#other-development-tools)
 - [References](#references)
 
 
@@ -180,12 +181,7 @@ Note: The NaN values is due to the intersection Gojek arrived by containing the 
 * Gojek is able to find out that Grab cheated
 ![v2.0-2](img/v2.0-2.png)
 
-
-
-
-
-
-
+  
 
 ## Algorithm Design 
 [(go to top)]
@@ -521,6 +517,12 @@ pandas
 ```
 pip install pandas
 ```
+
+## Other Development Tools
+Programming Language: python  
+IDE: Jupyter notebook  
+Other softwares: Github
+
 
 ## References
 [(go to top)]
