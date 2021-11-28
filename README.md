@@ -74,11 +74,12 @@ There are six main sections in v1.0, v1.1 and v1.2. They are:
    * Detailed explanations on each step is provided in the notebook
    * For all steps, there are 3 subsections
      1. The actual code for the step
-     2. Clients' status after the step (not part of the algorithm, purely for verification and understanding of algorithm)
+     2. Clients' status after the step 
         * Displays the value of selected variables in the client class after the step
-     3. Files' status after the step (not part of the algorithm, purely for verification and understanding of algorithm)
+     3. Files' status after the step
         * Displays the content of each client's file after the step
-     * Note: subsection `c` is sometimes omitted if there are no changes to the file after that step
+     * Note: Subsections `b` and `c` shows a snapshot of the current state. 
+     Subsection `c` is sometimes omitted if there are no changes to the file after that step
 6. Check results
    * Verify that the intersection found is correct  
 
