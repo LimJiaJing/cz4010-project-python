@@ -6,19 +6,19 @@ In this project, we designed and implemented several algorithms for secure and p
 ## Contents
 - [Motivation](#motivation)
 - [Use of Code](#use-of-code)
-  - [v1.0 - The basic algorithm](#v1.0---the-basic-algorithm)
+  - [v1.0 - The basic algorithm](#v10---the-basic-algorithm)
     - [Change phone number count](#change-phone-number-count)
     - [Change key size](#change-key-size)
   - [v1.1 - Prevent man-in-the-middle attack with symmetric key encryption!](#v11---prevent-man-in-the-middle-attack-with-symmetric-key-encryption)
-  - [v1.2 - Prevent set size reveal with padding!](#v1.2---prevent-set-size-reveal-with-padding!)
+  - [v1.2 - Prevent set size reveal with padding!](#v12---prevent-set-size-reveal-with-padding)
     - [Change set size](#change-set-size)
-  - [v2.0 - Detect shuffling of encrypted set with commit mechanism!](#v2.0---detect-shuffling-of-encrypted-set-with-commit-mechanism!)
+  - [v2.0 - Detect shuffling of encrypted set with commit mechanism!](#v20---detect-shuffling-of-encrypted-set-with-commit-mechanism)
     - [Try shuffling the encrypted set](#try-shuffling-the-encrypted-set)
 - [Algorithm Design](#algorithm-design)
-  - [v1.0: Basic DH Algorithm](#v1.0:-basic-dh-algorithm)
-  - [v1.1: DH Algorithm with Symmetric Encryption](#v1.1:-dh-algorithm-with-symmetric-encryption)
-  - [v1.2: Basic DH Algorithm with Padding](#v1.2:-basic-dh-algorithm-with-padding)
-  - [v2.0: DH Algorithm with Result Verification](#v2.0:-dh-algorithm-with-result-verification)
+  - [v1.0: Basic DH Algorithm](#v10-basic-dh-algorithm)
+  - [v1.1: DH Algorithm with Symmetric Encryption](#v11-dh-algorithm-with-symmetric-encryption)
+  - [v1.2: Basic DH Algorithm with Padding](#v12-basic-dh-algorithm-with-padding)
+  - [v2.0: DH Algorithm with Result Verification](#v20-dh-algorithm-with-result-verification)
 - [Design Considerations](#design-considerations)
   - [Secret from Each Party](#secret-from-each-party)
   - [No Collisions](#no-collisions)
@@ -80,7 +80,7 @@ key_size = 1024 # both private keys and large prime
 [(go to top)]
 
 To run the notebook, simply click `Kernel -> Restart & Run All`  
-Everything mentioned in [v1.0](#v1.0-the-basic-algorithm) is applicable
+Everything mentioned in [v1.0](#v10---the-basic-algorithm) is applicable
 
 
 
@@ -88,7 +88,7 @@ Everything mentioned in [v1.0](#v1.0-the-basic-algorithm) is applicable
 [(go to top)]
 
 To run the notebook, simply click `Kernel -> Restart & Run All`  
-Everything mentioned in [v1.1](#v1.1-prevent man-in-the-middle-attack-with-symmetric-key-encryption!) is applicable
+Everything mentioned in [v1.1](#v11---prevent man-in-the-middle-attack-with-symmetric-key-encryption) is applicable
 
 #### Change set size
 Edit the following cell in the notebook
@@ -108,7 +108,7 @@ common_phone_number_count = 10
 [(go to top)]
 
 To run the notebook, simply click `Kernel -> Restart & Run All`  
-Everything mentioned in [v1.2](#v1.2-prevent-set-size-reveal-with-padding!) is applicable
+Everything mentioned in [v1.2](#v12---prevent-set-size-reveal-with-padding) is applicable
 #### Try shuffling the encrypted set
 Edit the following cell to make one party shuffle the encrypted set and send the wrong order to the other party
 ```python
@@ -471,4 +471,4 @@ used to generate random safe prime for prime modulus
 
 [7] C. Meadows, "A More Efficient Cryptographic Matchmaking Protocol for Use in the Absence of a Continuously Available Third Party," in *1986 IEEE Symposium on Security and Privacy*, 1986, pp. 134–134. doi: 10.1109/SP.1986.10022.
 
-[(go to top)]: #contents 
+[(go to top)]: #team-g-jjs-private-set-intersection-algorithm
