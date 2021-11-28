@@ -57,7 +57,7 @@ Note: ensure all libraries mentioned in [External Libraries](#external-libraries
 ### Explanation of development choice
 We developed the code in an incremental manner, where each version is an improvement of the previous. This style of development
 allowed us start simple and slowly improve on the algorithm. It also complements the time restriction where we can keep improving 
-as long as the time permitted, while not being as risk of having no deliverables.
+as long as the time permitted, while not being at risk of having no deliverables.
 ### Explanation of notebook format
 There are six main sections in v1.0, v1.1 and v1.2. They are:
 1. About
