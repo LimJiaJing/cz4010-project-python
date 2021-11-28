@@ -35,6 +35,7 @@ In this project, we designed and implemented several algorithms for secure and p
   - [Other Libraries](#other-libraries)
     - [random](#random)
     - [pandas](#pandas)
+  - [Installation](#installation)
 - [References](#references)
 
 
@@ -51,17 +52,49 @@ Grab and Gojek want to identify the drivers who are double-dipping on both platf
 
 ## Use of Code
 [(go to top)]  
-Note: ensure Requirements have been satisfied
+Note: ensure all libraries mentioned in [External Libraries](#external-libraries) have been installed
 
+### Explanation of development choice
+We developed the code in an incremental manner, where each version is an improvement of the previous. This style of development
+allowed us start simple and slowly improve on the algorithm. It also complements the time restriction where we can keep improving 
+as long as the time permitted, while not being as risk of having no deliverables.
+### Explanation of notebook format
+There are six main sections in v1.0, v1.1 and v1.2. They are:
+1. About
+   * Explains the features in the version
+2. Generate phone numbers and store them in "phone_numbers.csv"
+3. Define classes necessary for the algorithm
+   * These include `NumberGenerator`, `NumberInspector`, `StorageManager` and `Client`
+   * Detailed comments explaining the purpose of each class is provided in the notebooks
+4. Initialize context
+   * Initialize variables required for psi algorithm
+     * These include `key_size`, prime modulus `p`, `factors_pminus1` (factors of p-1), and the two clients `grab` and `gojek`
+5. Get intersection
+   * The main algorithm that consists of 4 steps 
+   * Detailed explanations on each step is provided in the notebook
+   * For all steps, there are 3 subsections
+     1. The actual code for the step
+     2. Clients' status after the step (not part of the algorithm, purely for verification and understanding of algorithm)
+        * Displays the value of selected variables in the client class after the step
+     3. Files' status after the step (not part of the algorithm, purely for verification and understanding of algorithm)
+        * Displays the content of each client's file after the step
+     * Note: subsection `c` is sometimes omitted if there are no changes to the file after that step
+6. Check results
+   * Verify that the intersection found is correct  
 
-
+In v2.0, there is one additional section - `Verify no shuffling of encrypted set`  
+* This section is meant to verify that no shuffling of the encrypted set was done by either client
+* In this section, there 6 steps
+* Detailed explanations on each step are provided in the notebook
 ### v1.0 - The basic algorithm
-[(go to top)]
+[(go to top)]  
+
+Notebook: [v1.0 notebook](v1.0.ipynb)
 
 To run the notebook, simply click `Kernel -> Restart & Run All`  
 
 #### Change phone number count
-Edit the following cell in the notebook
+Edit the following in the notebook
 ```python
 # set phone number count
 gojek_phone_number_count = 61 # inclusive of phone numbers in common with grab
@@ -77,7 +110,9 @@ key_size = 1024 # both private keys and large prime
 ```
 
 ### v1.1 - Prevent man-in-the-middle attack with symmetric key encryption!
-[(go to top)]
+[(go to top)]  
+
+Notebook: [v1.1 notebook](v1.1.ipynb)    
 
 To run the notebook, simply click `Kernel -> Restart & Run All`  
 Everything mentioned in [v1.0](#v10---the-basic-algorithm) is applicable
@@ -87,8 +122,10 @@ Everything mentioned in [v1.0](#v10---the-basic-algorithm) is applicable
 ### v1.2 - Prevent set size reveal with padding!
 [(go to top)]
 
+Notebook: [v1.2 notebook](v1.2.ipynb)     
+
 To run the notebook, simply click `Kernel -> Restart & Run All`  
-Everything mentioned in [v1.1](#v11---prevent man-in-the-middle-attack-with-symmetric-key-encryption) is applicable
+Everything mentioned in [v1.1](#v11---prevent-man-in-the-middle-attack-with-symmetric-key-encryption) is applicable
 
 #### Change set size
 Edit the following cell in the notebook
@@ -107,6 +144,8 @@ common_phone_number_count = 10
 ### v2.0 - Detect shuffling of encrypted set with commit mechanism!
 [(go to top)]
 
+Notebook: [v2.0 notebook](v2.0.ipynb)    
+
 To run the notebook, simply click `Kernel -> Restart & Run All`  
 Everything mentioned in [v1.2](#v12---prevent-set-size-reveal-with-padding) is applicable
 #### Try shuffling the encrypted set
@@ -118,8 +157,8 @@ grab.encrypt_set(True) # set is_other_party to true
 gojek.encrypt_set(True)
 # gojek.encrypt_set(True, True)
 ```
-* In the example given below, uncomment `grab.encrypt_set(True, True)` and comment out `grab.encrypt_set(True)` 
-to make Grab shuffle the encrypted set
+* In the example given, uncomment `grab.encrypt_set(True, True)` and comment out `grab.encrypt_set(True)` 
+to make Grab shuffle the encrypted set i.e.:
 ```python
 # clients encrypt other party's self encrypted set
 # grab.encrypt_set(True) # set is_other_party to true
@@ -129,6 +168,7 @@ gojek.encrypt_set(True)
 ```
 * Gojek ends up finding the wrong intersection while Grab still arrives at the correct intersection
 ![v2.0-1](img/v2.0-1.png)
+Note: The NaN values is due to the intersection Gojek arrived by containing the invalid phone numbers used for padding
 * Gojek is able to find out that Grab cheated
 ![v2.0-2](img/v2.0-2.png)
 
@@ -405,7 +445,6 @@ Unfortunately, none of our algorithms would be able to stop the parties from doi
 [(go to top)]
 
 ### Cryptographic libraries
-[(go to top)]
 
 #### cryptography
 `cryptography.hazmat.primitives.asymmetric.dh.generate_parameters(generator,key_size)` 
@@ -453,6 +492,27 @@ used to generate random safe prime for prime modulus
 #### pandas
 `pandas` used for displaying data as well as reading and writing to `.csv` files
 
+### Installation
+cryptography
+```
+pip install cryptography
+```
+hashlib
+```
+pip install hashlib
+```
+sympy
+```
+pip install sympy
+```
+secrets
+```
+pip install secrets
+```
+pandas
+```
+pip install pandas
+```
 
 ## References
 [(go to top)]
