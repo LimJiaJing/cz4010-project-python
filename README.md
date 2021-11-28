@@ -151,7 +151,7 @@ common_phone_number_count = 10
 [(go to top)]
 
 Notebook: [v2.0 notebook](v2.0.ipynb)  
-Algorithm explanation: [v2.0 explanation](#v20-dh-algorithm-with-result-verification)
+Algorithm explanation: [v2.0 explanation](#v20-dh-algorithm-with-result-verification)  
 
 To run the notebook, simply click `Kernel -> Restart & Run All`  
 Everything mentioned in [v1.2](#v12---prevent-set-size-reveal-with-padding) is applicable
