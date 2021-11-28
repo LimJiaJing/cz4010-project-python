@@ -17,7 +17,7 @@ In this project, we designed and implemented several algorithms for secure and p
 - [Algorithm Design](#algorithm-design)
   - [v1.0: Basic DH Algorithm](#v10-basic-dh-algorithm)
   - [v1.1: DH Algorithm with Symmetric Encryption](#v11-dh-algorithm-with-symmetric-encryption)
-  - [v1.2: Basic DH Algorithm with Padding](#v12-basic-dh-algorithm-with-padding)
+  - [v1.2: DH Algorithm with Padding](#v12-dh-algorithm-with-padding)
   - [v2.0: DH Algorithm with Result Verification](#v20-dh-algorithm-with-result-verification)
 - [Design Considerations](#design-considerations)
   - [Secret from Each Party](#secret-from-each-party)
@@ -243,7 +243,7 @@ We have chosen to use an adapted version of the Diffie-Hellman key exchange algo
 ### v1.0: Basic DH Algorithm
 [(go to top)]
 
-In version 1.0 and its sub-versions, we assume that the parties are honest but curious. The parties being honest means they will not deviate from the protocol. However, the parties being curious means that they will try to find out as much as possible about the other party's set thorough other means, such as performing dictionary attacks.
+In version 1.0 and its sub-versions, we assume that the parties are semi-honest. This means they will not deviate from the protocol. However, the parties will try to find out as much as possible about the other party's set thorough other means, such as performing dictionary attacks.
 
 We have based this algorithm off of Clark's algorithm [[1]](#references). We use 1024-bit safe prime for ![p] and 1024-bit private keys for both parties.
 
@@ -291,7 +291,7 @@ In the previous version, as with all Diffie-Hellman protocols, the algorithm is 
 
 
 
-### v1.2: Basic DH Algorithm with Padding
+### v1.2: DH Algorithm with Padding
 [(go to top)]
 
 This is an improvement of the version 1.1 algorithm. On top of the base algorithm and symmetric encryption, we add padding of phone numbers.
