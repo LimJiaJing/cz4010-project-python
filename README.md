@@ -98,7 +98,7 @@ To run the notebook, simply click `Kernel -> Restart & Run All`
 
 #### Change phone number count
 Edit the following in the notebook
-```jupyterpython
+```python
 # set phone number count
 gojek_phone_number_count = 61 # inclusive of phone numbers in common with grab
 grab_phone_number_count = 91 # inclusive of phone numbers in common with gojek
@@ -107,7 +107,7 @@ common_phone_number_count = 10
 
 #### Change key size
 Edit the following cell in the notebook
-```jupyterpython
+```python
 # assign pre-determined variables for psi
 key_size = 1024 # both private keys and large prime
 ```
@@ -132,7 +132,7 @@ Everything mentioned in [v1.1](#v11---prevent-man-in-the-middle-attack-with-symm
 
 #### Change set size
 Edit the following cell in the notebook
-```jupyterpython
+```python
 # set set-size
 set_size = 100 # both parties are to exchange sets of a pre-determined size
 
@@ -153,7 +153,7 @@ To run the notebook, simply click `Kernel -> Restart & Run All`
 Everything mentioned in [v1.2](#v12---prevent-set-size-reveal-with-padding) is applicable
 #### Try shuffling the encrypted set
 Edit the following cell to make one party shuffle the encrypted set and send the wrong order to the other party
-```jupyterpython
+```python
 # clients encrypt other party's self encrypted set
 grab.encrypt_set(True) # set is_other_party to true
 # grab.encrypt_set(True, True) # set shuffle to true to make grab shuffle the encrypted set
@@ -162,7 +162,7 @@ gojek.encrypt_set(True)
 ```
 * In the example given, uncomment `grab.encrypt_set(True, True)` and comment out `grab.encrypt_set(True)` 
 to make Grab shuffle the encrypted set i.e.:
-```jupyterpython
+```python
 # clients encrypt other party's self encrypted set
 # grab.encrypt_set(True) # set is_other_party to true
 grab.encrypt_set(True, True) # set shuffle to true to make grab shuffle the encrypted set
