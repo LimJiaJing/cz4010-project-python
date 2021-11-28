@@ -30,7 +30,74 @@ Grab and Gojek want to identify the drivers who are double-dipping on both platf
 
 
 ## Use of Code
-[(go to top)]
+[(go to top)]  
+Note: ensure Requirements have been satisfied
+### v1.0 - The basic algorithm
+To run the notebook, simply click `Kernel -> Restart & Run All`  
+#### Change phone number count
+Edit the following cell in the notebook
+```python
+# set phone number count
+gojek_phone_number_count = 61 # inclusive of phone numbers in common with grab
+grab_phone_number_count = 91 # inclusive of phone numbers in common with gojek
+common_phone_number_count = 10
+```
+
+#### Change key size
+Edit the following cell in the notebook
+```python
+# assign pre-determined variables for psi
+key_size = 1024 # both private keys and large prime
+```
+
+### v1.1 - Prevent man-in-the-middle attack with symmetric key encryption!
+To run the notebook, simply click `Kernel -> Restart & Run All`  
+Everything mentioned in [v1.0](#v1.0-the-basic-algorithm) is applicable
+### v1.2 - Prevent set size reveal with padding!
+To run the notebook, simply click `Kernel -> Restart & Run All`  
+Everything mentioned in [v1.1](#v1.1-prevent man-in-the-middle-attack-with-symmetric-key-encryption!) is applicable
+
+#### Change set size
+Edit the following cell in the notebook
+```python
+# set set-size
+set_size = 100 # both parties are to exchange sets of a pre-determined size
+
+# set phone number count
+gojek_phone_number_count = 61 # inclusive of phone numbers in common with grab
+grab_phone_number_count = 91 # inclusive of phone numbers in common with gojek
+common_phone_number_count = 10
+```
+### v2.0 - Detect shuffling of encrypted set with commit mechanism!
+To run the notebook, simply click `Kernel -> Restart & Run All`  
+Everything mentioned in [v1.2](#v1.2-prevent-set-size-reveal-with-padding!) is applicable
+#### Try shuffling the encrypted set
+Edit the following cell to make one party shuffle the encrypted set and send the wrong order to the other party
+```python
+# clients encrypt other party's self encrypted set
+grab.encrypt_set(True) # set is_other_party to true
+# grab.encrypt_set(True, True) # set shuffle to true to make grab shuffle the encrypted set
+gojek.encrypt_set(True)
+# gojek.encrypt_set(True, True)
+```
+* In the example given below, uncomment `grab.encrypt_set(True, True)` and comment out `grab.encrypt_set(True)` 
+to make Grab shuffle the encrypted set
+```python
+# clients encrypt other party's self encrypted set
+# grab.encrypt_set(True) # set is_other_party to true
+grab.encrypt_set(True, True) # set shuffle to true to make grab shuffle the encrypted set
+gojek.encrypt_set(True)
+# gojek.encrypt_set(True, True)
+```
+* Gojek ends up finding the wrong intersection while Grab still arrives at the correct intersection
+![v2.0-1](img/v2.0-1.png)
+* Gojek is able to find out that Grab cheated
+![v2.0-2](img/v2.0-2.png)
+
+
+
+
+
 
 
 
@@ -258,6 +325,51 @@ Unfortunately, none of out algorithms would be able to stop the parties from doi
 
 ## External Libraries
 [(go to top)]
+
+### Cryptographic libraries
+#### cryptography
+`cryptography.hazmat.primitives.asymmetric.dh.generate_parameters(generator,key_size)` 
+used to generate random safe prime for prime modulus
+* [documentation](https://cryptography.io/en/latest/hazmat/primitives/asymmetric/dh/#group-parameters)
+
+`cryptography.fernet.Fernet` used for symmetric key encryption  
+* [documentation](https://cryptography.io/en/latest/fernet/)
+* `Fernet` is a high level symmetric encryption recipe provided by `cryptography`
+* `Fernet` uses:
+  * `AES` in `CBC` mode with a `128-bit key` for encryption; using `PKCS7` padding
+  * `HMAC` using `SHA256` for authentication
+  * `os.urandom()` for generation of IV
+  * [source](https://cryptography.io/en/latest/fernet/#implementation)  
+
+#### hashlib
+`hashlib.sha256` used for hashing messages  
+* [documentation](https://docs.python.org/3/library/hashlib.html#hash-algorithms)
+* `hashlib` uses `SHA3` from `OpenSSL 1.1.1` and newer
+  * [source](https://docs.python.org/3/library/hashlib.html#hash-algorithms)  
+
+
+#### sympy
+`sympy.ntheory.primetest.isprime(n)` used to check if n is prime
+* [documentation](https://docs.sympy.org/latest/modules/ntheory.html#sympy.ntheory.primetest.isprime)
+* For n larger than 2<sup>64</sup>, a strong BPSW test is performed. 
+  * [source](https://docs.sympy.org/latest/modules/ntheory.html#sympy.ntheory.primetest.isprime)  
+
+#### secrets
+`secrets.randbits(size)` used to generate random numbers of bit-size 1024 for clients' private secret
+* [documentation](https://docs.python.org/3/library/secrets.html#random-numbers)
+* `secrets.randbits(size)` is a cryptographically secure random number generator
+
+
+### Other libraries
+#### random
+`random.sample()` used to generate phone numbers and invalid phone numbers
+* This usage does not require the generator to be cryptographically secure  
+
+`random.shuffle()` used to shuffle the phone numbers
+* This usage does not require the generator to be cryptographically secure
+
+#### pandas
+`pandas` used for displaying data as well as reading and writing to `.csv` files
 
 
 ## References
