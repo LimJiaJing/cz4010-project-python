@@ -280,7 +280,7 @@ For a party to run a dictionary attack, it would first have to find the private 
 
 This is an improvement of the version 1.0 algorithm. On top of the base algorithm, we add symmetric encryption.
 
-The algorithm is as follows (additions have been included in red):
+The algorithm is as follows (additions are in red):
 
 ![v1.1](img/v1.1.png)
 
@@ -297,7 +297,7 @@ In the previous version, as with all Diffie-Hellman protocols, the algorithm is 
 
 This is an improvement of the version 1.1 algorithm. On top of the base algorithm and symmetric encryption, we add padding of phone numbers.
 
-The algorithm is as follows (additions have been included in red):
+The algorithm is as follows (additions are in red):
 
 ![v1.1](img/v1.2.png)
 
@@ -312,19 +312,19 @@ In the previous versions, Grab would be able to find out Gojek's set size from t
 ### v2.0: DH Algorithm with Result Verification
 [(go to top)]
 
-In this version, we assume that the parties are malicious. This means that, in addition to trying to gain information on the other party's set, they will also try to mess up the other party's intersection results if possible. They may do so by not following the protocol. However, for this algorithm, we assume that the parties will only try to shuffle the ciphertexts. 
+In this version, we assume that the parties are malicious. This means that, in addition to trying to gain information on the other party's set, they will also try to mess up the other party's intersection results if possible. They may do so by not following the protocol. For this algorithm, we assume that the only malicious actions the parties will take is to shuffle the ciphertexts. 
 
-Consider a scenario where Grab wants to mess up Gojek's intersection results. When Grab is computing ![gojek shared ciphertext], Grab shuffles the values. As a result, when Gojek is finding the intersection, it will get the correct common ciphertext values. However, when Gojek tries to find the common phone numbers by matching the values back to its original list, it will get back the wrong values since the order has been changed. 
+Consider a scenario where Grab wants to mess up Gojek's intersection results. After Grab has computed the  ![gojek shared ciphertext] values, it shuffles the values. As a result, when Gojek tries to find the common phone numbers by matching the values back to its original list, it will get back the wrong values since the order has been changed. 
 
 Hence, we have added a verification portion to prevent this. In the verification phase, parties will confirm that no cheating has occurred and that they both got the same intersection values. This will discourage parties from cheating, as cheating can be uncovered during the verification phase.
 
-The algorithm is as follows (additions have been included in red):
+The algorithm is as follows (additions are in red):
 
 ![v1.1](img/v2.0.png)
 
 <ins>Step 1: Sum of hashes</ins>
 
-First, the parties will compute the sum of hashes for its intersection sets. The parties will hash the phone numbers in their computed intersections using hash function ![hash function 2], which is one round of SHA3-256. Then, they sum all these values together. This condenses all of the intersection values into a single value for easier comparison and computation. If the intersection sets are the same, both parties will have the same sum of hashes value.
+First, the parties will compute the sum of hashes for its intersection sets. The parties will find all the ![hashed text] values that correspond to the phone numbers in the computed intersection. Then, they sum all these hashed values together. This condenses all of the intersection values into a single value for easier comparison and computation. If the intersection sets are the same, both parties will have the same sum of hashes value.
 
 <ins>Step 2: Exchange sum of hashes using Diffie-Hellman exchange</ins>
 
@@ -344,12 +344,16 @@ Now the parties need to exchange the comparison values so that they can compare 
 
 We solve this problem using a commit mechanism. The commit mechanism has the following steps:
 
-1. Grab and Gojek compute the hash of their comparison values using ![hash function 2]. 
+1. Grab and Gojek compute the hash of their comparison values using ![hash function 2], which is one round of SHA3-256.
 2. Grab commits to a value by sending its hashed comparison value.
 3. Gojek commits to a value by sending its hashed comparison value. Gojek also sends its actual comparison value.
 4. Grab sends its actual comparison value.
 
-With the commit mechanism, Gojek will no longer be able to hide its cheating during the verification phase. In step 2, Gojek can still send back Grab's hashed comparison value. However, it will be unable to fabricate the a comparison value that matches Grab's without knowing the actual numbers Grab used to compute it. Since Gojek does not know what phone numbers are in Grab's set, it would not know what false numbers are in Grab's computed intersection. Thus, there would be no way for Gojek to pass the verification phase if it cheated. 
+With the commit mechanism, Gojek will no longer be able to hide its cheating during the verification phase. In step 2, Gojek can still send back Grab's hashed comparison value. However, it will be unable to fabricate a comparison value that matches Grab's due to two reasons.
+
+Firstly, Gojek is unable to derive Grab's comparison value form Grab's hashed comparison value. This is because ![hash function 2] uses SHA3, which has very strong pre-image resistance. Hence, it would be infeasible for Gojek to try to derive Grab's comparison value through this method.
+
+Secondly, Gojek will not know what phone numbers are in Grab's computed intersection.  After Gojek shuffles Grab's encrypted values, the common ciphertext will map back to values in Grab's set that Gojek is not aware of, since Gojek does not know Grab's set of phone numbers. Since Gojek is unable to know what values are in Grab's computed intersection, it is not able to produce Grab's comparison value. Therefore, Gojek would not able to cover up its cheating.
 
 
 [gojek shared ciphertext]: https://latex.codecogs.com/png.image?%5Cdpi%7B100%7D%20s_%7BGojek:i%7D
