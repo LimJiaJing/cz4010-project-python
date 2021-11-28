@@ -158,7 +158,7 @@ The algorithm is as follows (additions have been included in red):
 
 ![v1.1](img/v1.2.png)
 
-In this version of the algorithm, the list is padded with random dummy values until the size of the list matches ![common size], which is a common size that the two parties agree on. Each dummy value is 9 digits as a 9 digit number cannot be a valid Singaporean phone number. The dummy values do not affect the final set intersection, as any dummy values that appear in the computed set intersection are filtered out.
+In this version of the algorithm, the list is padded with random dummy values until the size of the list matches ![common size], which is a common size that the two parties agree on. Each dummy value is a number ranging from 1000 0000 to 7999 9999. Since Singaporean mobile phone numbers start with either 8 or 9, these dummy values cannot not be valid Singaporean phone numbers. The dummy values do not affect the final set intersection, as any dummy values that appear in the computed set intersection are filtered out.
 
 
 
@@ -276,4 +276,4 @@ Unfortunately, none of out algorithms would be able to stop the parties from doi
 
 
 
-[(go to top)]: #team-g-jj's-private-set-intersection-algorithm 
+[(go to top)]: #contents 
