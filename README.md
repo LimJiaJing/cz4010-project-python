@@ -318,37 +318,42 @@ In the previous versions, Grab would be able to find out Gojek's set size from t
 
 In this version, we assume that the parties are malicious. This means that, in addition to trying to gain information on the other party's set, they will also try to mess up the other party's intersection results if possible. They may do so by not following the protocol. However, for this algorithm, we assume that the parties will only try to shuffle the ciphertexts. 
 
-In this version of the algorithm, we add verification for the intersection results
+Consider a scenario where Grab wants to mess up Gojek's intersection results. When Grab is computing ![gojek shared ciphertext], Grab shuffles the values. As a result, when Gojek is finding the intersection, it will get the correct common ciphertext values. However, when Gojek tries to find the common phone numbers by matching the values back to its original list, it will get back the wrong values since the order has been changed. 
+
+Hence, we have added a verification portion to prevent this. In the verification phase, parties will confirm that no cheating has occurred and that they both got the same intersection values. This will discourage parties from cheating, as cheating can be uncovered during the verification phase.
 
 The algorithm is as follows (additions have been included in red):
 
 ![v1.1](img/v2.0.png)
 
-<ins>Why verification?</ins>
+<ins>Step 1: Sum of hashes</ins>
 
-Consider a scenario where Grab wants to mess up Gojek's intersection results. When Grab is computing ![gojek shared ciphertext], Grab shuffles the values. As a result, when Gojek is finding the intersection, it will get the correct common ciphertext values. However, when Gojek tries to find the common phone numbers by matching the values back to its original list, it will get back the wrong values since the order has been changed. 
+First, the parties will compute the sum of hashes for its intersection sets. The parties will hash the phone numbers in their computed intersections using hash function ![hash function 2], which is one round of SHA3-256. Then, they sum all these values together. This condenses all of the intersection values into a single value for easier comparison and computation. If the intersection sets are the same, both parties will have the same sum of hashes value.
 
-Hence, we have added a verification portion to prevent this. In the verification phase, parties will confirm that no cheating has occurred and that they both got the same intersection values. This will discourage parties from cheating, as cheating can be uncovered during the verification phase.
+<ins>Step 2: Exchange sum of hashes using Diffie-Hellman exchange</ins>
 
-<ins>Why sum of hashes? </ins>
+However, the sum of hashes values are vulnerable to dictionary attack. For example, Gojek could try different combinations of phone numbers until it gets a combination that produces Grab's sum of hashes value. From this, Gojek would be able to find out that Grab has this specific combination of phone numbers in its set. Hence, the parties cannot exchange the sum of hashes values by simply sending them to each other.
 
-Consider a scenario where in the verification phase, the parties simply agree to exchange the common phone numbers they have computed. Grab sends its values first, followed by Gojek. Now let's say the Gojek cheated during the PSI algorithm by shuffling Grab's values. As a result, the "intersection" that Grab computes will be filled with the wrong phone numbers. To make matters worse, when Grab sends its computed intersection values to Gojek for verification, it will leak some of its phone numbers to Gojek.
- 
-Hence, the first step of the verification is to compute the sum of hashes. In this step, each party hashes the common phone numbers they have computed using hash function ![hash function 2], which is one round of SHA3-256. Then, they sum all these values together. With this method, if Gojek has cheated, Grab does not reveal anything about its phone numbers.
+We solve this by using a Diffie-Hellman exchange protocol to exchange the values. The exchange will perform the following steps:
 
-<ins>Why hash the sum of hashes? </ins>
+1. Parties encrypt their sum of hashes with their Diffie-Hellman private keys.
+2. Parties send their encrypted values to the other party.
+3. Parties encrypt the other party's value with their Diffie-Hellman private keys. This new value is known as the comparison value.
 
-Consider a scenario where they agree to simply exchange the sum of hashes. Grab sends its value first, followed by Gojek. Now let's say that Gojek has cheated during the PSI algorithm and wants to hide this fact from Grab. In this scenario, Gojek can simply send back Grab's value, and Grab will falsely think that Gojek has not cheated.
+If the parties used the same intersection set to compute the sum of hashes, the comparison values will be the same.
 
-Hence, the next step of the verification is to perform 3 exchanges. The exchanges are as follows:
+<ins>Step 3: Commit mechanism</ins>
 
-1. Grab sends its hashed sum of hashes to Gojek.
-2. Gojek sends its hashed sum of hashes and its sum of hashes to Grab.
-3. Grab sends its sum of hashes to Gojek.
+Now the parties need to exchange the comparison values so that they can compare them. Consider a scenario where the parties do a simple exchange for the comparison values. Grab sends its comparison value first, followed by Gojek. Now let's say that Gojek cheated during the PSI algorithm phase and reordered Grab's encrypted values. To cover up its cheating, Gojek needs to send a comparison value that matches Grab's. Since Grab sends its comparison value to Gojek first, Gojek can simply send back Grab's value. As a result, Grab would wrongly think that no cheating has occurred and Gojek would have successfully gotten away with cheating.
 
-All the hashing that occurs in this exchange is using hash function ![hash function 2].
+We solve this problem using a commit mechanism. The commit mechanism has the following steps:
 
-With this method, Gojek will no longer be able to hide its cheating during the verification phase. In step 2, Gojek can still send back Grab's hashed sum of hashes value. However, it will be unable to fabricate the sum of hashes value without knowing the actual numbers Grab used to compute it. The only numbers Gojek knows from Grab's set are the ones in its computed intersection, so Gojek would not know what false numbers are in Grab's computed intersection. Thus, there would be no way for Gojek to pass the verification phase if it cheated. 
+1. Grab and Gojek compute the hash of their comparison values using ![hash function 2]. 
+2. Grab commits to a value by sending its hashed comparison value.
+3. Gojek commits to a value by sending its hashed comparison value. Gojek also sends its actual comparison value.
+4. Grab sends its actual comparison value.
+
+With the commit mechanism, Gojek will no longer be able to hide its cheating during the verification phase. In step 2, Gojek can still send back Grab's hashed comparison value. However, it will be unable to fabricate the a comparison value that matches Grab's without knowing the actual numbers Grab used to compute it. Since Gojek does not know what phone numbers are in Grab's set, it would not know what false numbers are in Grab's computed intersection. Thus, there would be no way for Gojek to pass the verification phase if it cheated. 
 
 
 [gojek shared ciphertext]: https://latex.codecogs.com/png.image?%5Cdpi%7B100%7D%20s_%7BGojek:i%7D
