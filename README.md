@@ -112,6 +112,7 @@ Edit the following cell in the notebook
 # assign pre-determined variables for psi
 key_size = 1024 # both private keys and large prime
 ```
+Note: Possible key sizes are 512&leq;`key_size`&leq;1024, where `key_size` is a multiple of 8. For minimum security, 1024 should be used.
 
 ### v1.1 - Prevent man-in-the-middle attack with symmetric key encryption!
 [(go to top)]  
@@ -144,7 +145,7 @@ gojek_phone_number_count = 61 # inclusive of phone numbers in common with grab
 grab_phone_number_count = 91 # inclusive of phone numbers in common with gojek
 common_phone_number_count = 10
 ```
-
+Note: `set_size`&GreaterEqual;max{`gojek_phone_number_count`, `grab_phone_number_count`}
 
 
 ### v2.0 - Detect shuffling of encrypted set with commit mechanism!
